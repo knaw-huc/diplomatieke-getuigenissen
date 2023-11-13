@@ -31,17 +31,16 @@ export default function Footer() {
 
                 <div className="w-full border-t border-diploblue-600 pt-4">
                     <p className="max-w-sm">
-                        <strong>Diplomatiek Getuigenissen</strong> is een project van het <a
-                        className="text-white underline" target="_blank" href="https://huygens.knaw.nl/">
-                        Huygens Instituut</a>
+                        Dit is een project van het <strong><a className="text-white underline" target="_blank"
+                                                              href="https://huygens.knaw.nl/">
+                        Huygens Instituut</a></strong>
                     </p>
                 </div>
 
                 <div className="w-full border-t border-diploblue-600 pt-4">
                     <p className="max-w-sm">
-                        Door diplomatieke getuigenissen te filmen en ze doorzoekbaar te maken,
-                        kunnen we een schat aan informatie verzamelen over verschillende diplomatieke
-                        periodes, belangrijke gebeurtenissen en bilaterale betrekkingen.
+                        <strong>Diplomatieke Getuigenissen</strong> is een oral history project over
+                        de geschiedenis van het Nederlands buitenlands beleid.
                     </p>
                 </div>
             </div>
