@@ -23,6 +23,10 @@ export default function Interviews({interviews}) {
                         </a>
 
                         {item.onderwerp}
+
+                        {item.periodevan && !item.periodetot && ` (${item.periodevan})`}
+                        {item.periodetot && !item.periodevan && ` (${item.periodetot})`}
+                        {item.periodevan && item.periodetot && ` (${item.periodevan} - ${item.periodetot})`}
                     </li>)}
                 </ul>
 

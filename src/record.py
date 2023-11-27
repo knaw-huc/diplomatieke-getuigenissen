@@ -15,19 +15,29 @@ class Record:
         return f'{achternaam_fixed}-{rec}', f'{achternaam_fixed}-{rec}_{session}'
 
     def get_chapters_vtt(self, rec, session):
+        def get_chapter_text(chapter):
+            text = chapter['onderwerp']
+            if chapter['periodevan'] and not chapter['periodetot']:
+                text += f" ({chapter['periodevan']})"
+            elif chapter['periodetot'] and not chapter['periodevan']:
+                text += f" ({chapter['periodetot']})"
+            elif chapter['periodevan'] and chapter['periodetot']:
+                text += f" ({chapter['periodevan']} - {chapter['periodetot']})"
+            return text
+
         record = self._index.get_record(rec)
         sessie = next(sessie for sessie in record['interviewsessies'] if sessie["Volgorde"] == str(session))
 
         duur = sessie['Duur']
-        data = [(it['tijdstip'], it['onderwerp']) for it in sessie['Inhoud']]
+        data = [(it['tijdstip'], get_chapter_text(it)) for it in sessie['Inhoud']]
         data.sort(key=lambda d: d[0])
 
         vtt = WebVTT()
         vtt.captions.extend([Caption(
             tijdstip + '.000',
             (data[i + 1][0] if i + 1 < len(data) else duur) + '.000',
-            onderwerp
-        ) for i, (tijdstip, onderwerp) in enumerate(data)])
+            caption_text
+        ) for i, (tijdstip, caption_text) in enumerate(data)])
 
         for i, caption in enumerate(vtt.captions):
             caption.identifier = str(i + 1)
