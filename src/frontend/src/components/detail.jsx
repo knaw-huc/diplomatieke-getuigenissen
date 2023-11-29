@@ -41,6 +41,8 @@ function DetailPage({data}) {
     const [tabOpened, setTabOpened] = useState('transcription');
     const [setChapterCues, setCaptionCues, setCurrentTime] = useTrackCues();
 
+    const sessionData = data.interviewsessies.find(s => parseInt(s.Volgorde) === session);
+
     useEffect(_ => {
         function jumpToSession() {
             const hashData = getHashData();
@@ -57,19 +59,27 @@ function DetailPage({data}) {
     return (
         <div className="flex flex-col md:flex-row w-full max-w-[1700px] mx-auto gap-10 xl:gap-20 px-6">
             <div className="w-full flex-col md:flex-row gap-10 xl:gap-20 flex">
-                <VideoColumn data={data} session={session} chapters={chapters}
+                <VideoColumn data={data} session={session} sessionData={sessionData} chapters={chapters}
                              setTabOpened={setTabOpened} onTimeUpdate={setCurrentTime}
                              onCaptionsLoaded={setCaptions} onChaptersLoaded={setChapters}/>
-                <TabsColumn data={data} chapters={chapters} captions={captions}
+                <TabsColumn data={data} sessionData={sessionData} chapters={chapters} captions={captions}
                             tabOpened={tabOpened} setTabOpened={setTabOpened}/>
             </div>
         </div>
     );
 }
 
-function VideoColumn({data, session, chapters, setTabOpened, onTimeUpdate, onCaptionsLoaded, onChaptersLoaded}) {
+function VideoColumn({
+                         data,
+                         session,
+                         sessionData,
+                         chapters,
+                         setTabOpened,
+                         onTimeUpdate,
+                         onCaptionsLoaded,
+                         onChaptersLoaded
+                     }) {
     const navigate = useNavigate();
-    const sessionData = data.interviewsessies.find(s => parseInt(s.Volgorde) === session);
 
     function backToSearch() {
         const code = sessionStorage.getItem('lastSearchCode');
@@ -115,7 +125,7 @@ function VideoColumn({data, session, chapters, setTabOpened, onTimeUpdate, onCap
     );
 }
 
-function TabsColumn({data, chapters, captions, tabOpened, setTabOpened}) {
+function TabsColumn({data, sessionData, chapters, captions, tabOpened, setTabOpened}) {
     return (
         <div className="w-full max-w-lg md:w-1/2">
             <div className="flex flex-row w-full border-b border-blueGrey-100 mb-4 lg:mb-8">
@@ -139,7 +149,7 @@ function TabsColumn({data, chapters, captions, tabOpened, setTabOpened}) {
                 <Interviews interviews={data.interviewsessies}/>}
 
             {tabOpened === 'transcription' &&
-                <Transcription chapters={chapters} captions={captions}/>}
+                <Transcription chapters={chapters} captions={captions} notice={sessionData.Bewerking}/>}
         </div>
     );
 }

@@ -81,7 +81,7 @@ class Index:
             },
             "size": length,
             "from": start,
-            "_source": ["id", "titel"]
+            "_source": ["id", "titel", "record"]
         })
 
         return {"amount": response["hits"]["total"]["value"],

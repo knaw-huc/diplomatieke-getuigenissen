@@ -60,7 +60,7 @@ export default function ResultCard({item, searchValues, onItem}) {
 
     return (
         <li className="w-full rounded border cursor-pointer mb-6 divide-y divide-solid bg-blueGrey-50 hover:bg-white border-blueGrey-50 hover:border-blueGrey-200 transition">
-            <div className="font-semibold p-4" onClick={_ => onItem(item.id)}>
+            <div className="font-semibold p-4" onClick={_ => onItem(item.id, item.record)}>
                 {item.titel}
             </div>
 
@@ -69,7 +69,8 @@ export default function ResultCard({item, searchValues, onItem}) {
                     <GhostLines/>
                 </div> : <>
                     {(totalMatches > LIMIT_SIZE && !showAll ? limitedHighlights : highlights).map(session =>
-                        <SessionResults key={session.session} id={item.id} session={session} onItem={onItem}/>)}
+                        <SessionResults key={session.session} id={item.id} session={session}
+                                        record={item.record} onItem={onItem}/>)}
 
                     {totalMatches > LIMIT_SIZE && !showAll &&
                         <div className="flex flex-row items-center justify-end"
@@ -90,7 +91,7 @@ export default function ResultCard({item, searchValues, onItem}) {
     );
 }
 
-function SessionResults({id, session, onItem}) {
+function SessionResults({id, session, record, onItem}) {
     return (
         <div>
             <div className="text-sm italic text-blueGrey-600 p-2 w-full">
@@ -98,12 +99,13 @@ function SessionResults({id, session, onItem}) {
             </div>
 
             {session.matches.map(match =>
-                <SessionMatch key={match.start} id={id} session={session.session} match={match} onItem={onItem}/>)}
+                <SessionMatch key={match.start} id={id} session={session.session}
+                              record={record} match={match} onItem={onItem}/>)}
         </div>
     );
 }
 
-function SessionMatch({id, session, match, onItem}) {
+function SessionMatch({id, session, record, match, onItem}) {
     const text = [];
 
     let left = match.text;
@@ -117,7 +119,7 @@ function SessionMatch({id, session, match, onItem}) {
 
     return (
         <div className="flex flex-col sm:flex-row items-center text-sm gap-4 hover:bg-blueGrey-50 p-2"
-             onClick={_ => onItem(id, session, match.start)}>
+             onClick={_ => onItem(id, record, session, match.start)}>
             <div className="timestamp font-mono text-xs mt-1 self-start">
                 {getDuration(match.start)}
             </div>

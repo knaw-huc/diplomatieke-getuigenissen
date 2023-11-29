@@ -3,7 +3,7 @@ import useTrackCues from "../hooks/useTrackCues.jsx";
 import {getHash} from "../misc/utils.js";
 import {GhostLines} from "../misc/loading.jsx";
 
-export default function Transcription({chapters, captions}) {
+export default function Transcription({chapters, captions, notice = null}) {
     const transcriptRef = useRef(null);
     const [useAutoScroll, setUseAutoScroll] = useState(true);
     const [setChapterCues, setCaptionCues, setCurrentTime] = useTrackCues();
@@ -44,6 +44,11 @@ export default function Transcription({chapters, captions}) {
                     Tekst loopt mee met video
                 </label>
             </div>
+
+            {notice && <div className="flex flex-col text-sm text-neutral-600 bg-[#f6ebe1] p-2 my-4 rounded">
+                <strong className="font-bold">Let op!</strong>
+                <span className="italic">{notice}</span>
+            </div>}
 
             {captions.length === 0 ? <div className="mt-2">
                 <GhostLines/>

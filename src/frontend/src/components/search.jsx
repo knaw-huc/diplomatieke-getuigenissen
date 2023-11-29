@@ -48,10 +48,12 @@ export default function Search() {
 
     const [selectedId, setSelectedId] = useState(null);
     const [selectedSession, setSelectedSession] = useState(null);
+    const [selectedSessionData, setSelectedSessionData] = useState(null);
 
-    function onSelectedItem(id, session, time) {
+    function onSelectedItem(id, record, session, time) {
         setSelectedId(id);
         setSelectedSession(session || 1);
+        setSelectedSessionData(record.interviewsessies.find(s => parseInt(s.Volgorde) === (session || 1)));
         window.location.hash = getTimeHash(time);
     }
 
@@ -125,7 +127,7 @@ export default function Search() {
                                onFilterRemove={removeFacet} selectPage={selectPage} onItem={onSelectedItem}/>
             )}
 
-            {selectedId && <DetailView id={selectedId} session={selectedSession}/>}
+            {selectedId && <DetailView id={selectedId} session={selectedSession} sessionData={selectedSessionData}/>}
         </div>
     );
 };
@@ -265,15 +267,15 @@ function PageBtn({title, onClick}) {
     );
 }
 
-function DetailView({id, session}) {
+function DetailView({id, session, sessionData}) {
     return (
         <TrackCuesContextProvider>
-            <MiniPlayer id={id} session={session}/>
+            <MiniPlayer id={id} session={session} sessionData={sessionData}/>
         </TrackCuesContextProvider>
     );
 }
 
-function MiniPlayer({id, session}) {
+function MiniPlayer({id, session, sessionData}) {
     const [captions, setCaptions] = useState([]);
     const [chapters, setChapters] = useState([]);
     const [setChapterCues, setCaptionCues, setCurrentTime] = useTrackCues();
@@ -292,7 +294,7 @@ function MiniPlayer({id, session}) {
                         </Link>
                     </div>
 
-                    <Transcription chapters={chapters} captions={captions}/>
+                    <Transcription chapters={chapters} captions={captions} notice={sessionData.Bewerking}/>
                 </div>
             </div>
         </div>
