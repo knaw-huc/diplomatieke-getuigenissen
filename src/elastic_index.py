@@ -1,8 +1,11 @@
 import math
 import string
+import urllib3
 
 from elasticsearch import Elasticsearch
 from config import es_host, es_user, es_password, es_diplo_index, es_vtt_index
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class Index:
