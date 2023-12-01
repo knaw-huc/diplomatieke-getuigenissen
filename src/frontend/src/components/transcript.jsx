@@ -46,7 +46,6 @@ export default function Transcription({chapters, captions, notice = null}) {
             </div>
 
             {notice && <div className="flex flex-col text-sm text-neutral-600 bg-[#f6ebe1] p-2 my-4 rounded">
-                <strong className="font-bold">Let op!</strong>
                 <span className="italic">{notice}</span>
             </div>}
 
