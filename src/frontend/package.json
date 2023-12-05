@@ -1,24 +1,24 @@
 {
   "name": "diplo-react",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.16.0",
+    "react-router-dom": "^6.20.1",
     "js-base64": "^3.7.5",
     "dompurify": "^3.0.6"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.10",
-    "@types/react": "^18.2.15",
-    "@types/react-dom": "^18.2.7",
-    "@vitejs/plugin-react": "^4.0.3",
+    "@types/react": "^18.2.42",
+    "@types/react-dom": "^18.2.17",
+    "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.16",
-    "postcss": "^8.4.30",
-    "tailwindcss": "^3.3.3",
-    "vite": "^4.4.5"
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.3.6",
+    "vite": "^4.5.1"
   },
   "scripts": {
     "dev": "vite",
