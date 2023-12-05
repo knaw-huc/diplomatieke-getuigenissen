@@ -78,7 +78,7 @@ export default function ListFacet({name, field, searchValues, parentCallback}) {
                             ))}
 
                             <div className="hcClickable cursor-pointer" onClick={changeListLength}>
-                                {more ? 'More...' : 'Less...'}
+                                {more ? 'Meer...' : 'Minder...'}
                             </div>
                         </div>) : (<div>Loading...</div>)}
                     </div>
