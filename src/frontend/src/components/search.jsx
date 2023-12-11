@@ -68,7 +68,6 @@ export default function Search() {
 
     function doSearch(searchStruc) {
         navigate('/zoeken/' + Base64.encode(JSON.stringify(searchStruc)));
-        window.scroll(0, 0);
     }
 
     function removeFacet(field, value) {

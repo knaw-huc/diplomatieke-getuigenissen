@@ -1,5 +1,6 @@
 import {useState, useEffect} from "react";
-import {getDuration, getNLDate} from "../misc/utils.js";
+import {useNavigate} from "react-router-dom";
+import {getDuration, getHash, getNLDate} from "../misc/utils.js";
 import {ArrowRightIcon, DoubleArrowDownIcon} from "../misc/icons.jsx";
 import {GhostLines} from "../misc/loading.jsx";
 import {getApiBase} from "../misc/config.js";
@@ -106,7 +107,15 @@ function SessionResults({id, session, record, onItem}) {
 }
 
 function SessionMatch({id, session, record, match, onItem}) {
+    const navigate = useNavigate();
     const text = [];
+
+    function onResultClick(e) {
+        e.preventDefault();
+        Array.from(e.currentTarget.querySelectorAll('.resultBtn'))
+            .find(btn => btn.getBoundingClientRect().width > 0)
+            .click();
+    }
 
     let left = match.text;
     let isMatchPart = false;
@@ -118,8 +127,7 @@ function SessionMatch({id, session, record, match, onItem}) {
     }
 
     return (
-        <div className="flex flex-col sm:flex-row text-sm gap-4 hover:bg-blueGrey-50 p-2"
-             onClick={_ => onItem(id, record, session, match.start)}>
+        <div className="flex flex-col sm:flex-row text-sm gap-4 hover:bg-blueGrey-50 p-2" onClick={onResultClick}>
             <div className="timestamp font-mono text-xs mt-1 self-start">
                 {getDuration(match.start)}
             </div>
@@ -132,8 +140,16 @@ function SessionMatch({id, session, record, match, onItem}) {
                     </span>)}
             </div>
 
-            <div>
-                <button className="rounded cursor-pointer">
+            <div className="resultBtn block md:hidden"
+                 onClick={_ => navigate(`/interview/${id}${getHash(undefined, session)}`)}>
+                <button className="p-3 rounded cursor-pointer" aria-label="bekijk dit fragment">
+                    <ArrowRightIcon className="w-5 h-5 fill-diploblue-900"/>
+                </button>
+            </div>
+
+            <div className="resultBtn hidden md:block"
+                 onClick={_ => onItem(id, record, session, match.start)}>
+                <button className="p-3 rounded cursor-pointer" aria-label="bekijk dit fragment">
                     <ArrowRightIcon className="w-5 h-5 fill-diploblue-900"/>
                 </button>
             </div>

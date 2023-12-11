@@ -1,4 +1,4 @@
-import {Outlet, useRouteError} from "react-router-dom";
+import {Outlet, ScrollRestoration, useRouteError} from "react-router-dom";
 
 import Header from "./pageElements/header.jsx";
 import Footer from "./pageElements/footer.jsx";
@@ -9,6 +9,7 @@ export default function App() {
             <div className="flex flex-col min-h-screen mx-auto">
                 <Header/>
                 <div className="mt-10 md:mt-20 grow">
+                    <ScrollRestoration/>
                     <Outlet/>
                 </div>
             </div>
