@@ -1,3 +1,4 @@
+import {NavLink} from "react-router-dom";
 import logo from '../assets/img/logo-huygens-instituut.png';
 
 export default function Header() {
@@ -13,21 +14,21 @@ export default function Header() {
                 </div>
 
                 <div className="flex flex-col md:flex-row  gap-8">
-                    <nav className="flex flex-row items-center text-sm md:text-base">
-                        <a href="https://diplomatieke-getuigenissen.huygens.knaw.nl/" aria-current="page"
+                    <nav className="flex flex-row items-center text-sm md:text-base" aria-label="Hoofdnavigatie">
+                        <a href="https://diplomatieke-getuigenissen.huygens.knaw.nl/"
                            className="text-diploblue-800 py-2 md:py-6 px-2 border-b-4 border-white hover:border-diploblue-700 hover:bg-diploblue-50">
                             Home
                         </a>
 
-                        <a href="/zoeken"
-                           className="text-diploblue-800 py-2 md:py-6 px-2 border-b-4 border-white hover:border-diploblue-700 hover:bg-diploblue-50">
+                        <NavLink to="/zoeken"
+                                 className="text-diploblue-800 py-2 md:py-6 px-2 border-b-4 border-white hover:border-diploblue-700 hover:bg-diploblue-50">
                             Zoeken in collectie
-                        </a>
+                        </NavLink>
 
-                        <a href="/diplomaten"
-                           className="text-diploblue-800 py-2 md:py-6 px-2 border-b-4 border-white hover:border-diploblue-700 hover:bg-diploblue-50">
+                        <NavLink to="/diplomaten"
+                                 className="text-diploblue-800 py-2 md:py-6 px-2 border-b-4 border-white hover:border-diploblue-700 hover:bg-diploblue-50">
                             Interviews
-                        </a>
+                        </NavLink>
 
                         <a href="https://diplomatieke-getuigenissen.huygens.knaw.nl/index.php/over-dit-project/"
                            className="text-diploblue-800 py-2 md:py-6 px-2 border-b-4 border-white hover:border-diploblue-700 hover:bg-diploblue-50">
@@ -40,9 +41,12 @@ export default function Header() {
                         </a>
                     </nav>
 
-                    <div className="flex-row items-center hidden md:flex">
+                    <div className="flex-row items-center hidden lg:flex">
                         <div>
-                            <img src={logo} alt="" className="h-6 sm:h-8 md:-mt-2"/>
+                            <a href="https://www.huygens.knaw.nl/" target="_blank"
+                               aria-label="Dit is een project van het Huygens Instituut.">
+                                <img src={logo} alt="" className="h-6 sm:h-8 md:-mt-2"/>
+                            </a>
                         </div>
                     </div>
                 </div>

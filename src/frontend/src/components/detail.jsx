@@ -57,7 +57,7 @@ function DetailPage({data}) {
     });
 
     return (
-        <div className="flex flex-col md:flex-row w-full max-w-[1700px] mx-auto gap-10 xl:gap-20 px-6">
+        <main className="flex flex-col md:flex-row w-full max-w-[1700px] mx-auto gap-10 xl:gap-20 px-6">
             <div className="w-full flex-col md:flex-row gap-10 xl:gap-20 flex">
                 <VideoColumn data={data} session={session} sessionData={sessionData} chapters={chapters}
                              setTabOpened={setTabOpened} onTimeUpdate={setCurrentTime}
@@ -65,7 +65,7 @@ function DetailPage({data}) {
                 <TabsColumn data={data} sessionData={sessionData} chapters={chapters} captions={captions}
                             tabOpened={tabOpened} setTabOpened={setTabOpened}/>
             </div>
-        </div>
+        </main>
     );
 }
 

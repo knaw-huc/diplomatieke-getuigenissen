@@ -230,29 +230,29 @@ const ControlsRef = forwardRef(function Controls({
     return (
         <div
             className="grid grid-flow-col justify-stretch content-center items-center bg-diploblue-700 w-full px-6 py-2">
-            <div className="text-white">
+            <div className="text-white" aria-label="Timecode">
                 <time ref={ref}>00:00:00</time>
                 <span className="text-xs ml-1">/ <time dateTime={durationStr}>{durationStr || '00:00'}</time></span>
             </div>
 
             <div className="flex justify-center">
-                <div className="cursor-pointer" onClick={togglePlay}>
+                <div className="cursor-pointer" aria-label="Speel video / Pauze video" onClick={togglePlay}>
                     {!isPlaying && <PlayIcon className="w-6 h-6 fill-white"/>}
                     {isPlaying && <PauseIcon className="w-6 h-6 fill-white"/>}
                 </div>
             </div>
 
             <div className="flex justify-end gap-2">
-                <div className="cursor-pointer" onClick={toggleSound}>
+                <div className="cursor-pointer" aria-label="Geluid aan en uit" onClick={toggleSound}>
                     {!isMuted && <SoundIcon className="w-4 h-4 fill-white"/>}
                     {isMuted && <MuteIcon className="w-4 h-4 fill-white"/>}
                 </div>
 
-                <div className="cursor-pointer" onClick={toggleCaptions}>
+                <div className="cursor-pointer" aria-label="Toon ondertiteling" onClick={toggleCaptions}>
                     <CaptionsIcon className="w-4 h-4 stroke-white"/>
                 </div>
 
-                <div className="cursor-pointer" onClick={toggleFullScreen}>
+                <div className="cursor-pointer" aria-label="Bekijk op volledige scherm" onClick={toggleFullScreen}>
                     <FullScreenIcon className="w-4 h-4 fill-white"/>
                 </div>
             </div>

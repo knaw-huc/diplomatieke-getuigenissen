@@ -123,7 +123,7 @@ export default function Search() {
     }
 
     return (
-        <div className="flex flex-col md:flex-row w-full max-w-[1700px] mx-auto gap-10 xl:gap-20 px-6">
+        <main className="flex flex-col md:flex-row w-full max-w-[1700px] mx-auto gap-10 xl:gap-20 px-6">
             <SearchFilters sendCandidate={sendCandidate} searchValues={searchStruc.searchvalues}
                            showFiltersPopup={showFiltersPopup} onHideFilters={_ => setShowFiltersPopup(false)}/>
 
@@ -138,7 +138,7 @@ export default function Search() {
             )}
 
             {selectedId && <DetailView id={selectedId} session={selectedSession} sessionData={selectedSessionData}/>}
-        </div>
+        </main>
     );
 };
 
@@ -147,7 +147,9 @@ function SearchFilters({sendCandidate, searchValues, showFiltersPopup, onHideFil
     const hidePopupCl = 'hidden';
 
     return (
-        <div className={`w-full flex-col max-w-[300px] bg-white md:flex ${showFiltersPopup ? showPopupCl : hidePopupCl}`}>
+        <section
+            className={`w-full flex-col max-w-[300px] bg-white md:flex ${showFiltersPopup ? showPopupCl : hidePopupCl}`}
+            aria-label="Alle zoek filters">
             <div className="w-full text-right">
                 <button className="md:hidden" onClick={onHideFilters}>
                     <CrossIcon className="w-6 h-6 fill-diploblue-700"/>
@@ -161,13 +163,13 @@ function SearchFilters({sendCandidate, searchValues, showFiltersPopup, onHideFil
                        name="land" field="land"/>
             <ListFacet parentCallback={sendCandidate} searchValues={searchValues}
                        name="organisatie" field="organisatie"/>
-        </div>
+        </section>
     );
 }
 
 function SearchResults({searchStruc, result, onFilterRemove, selectPage, onItem, onShowFilters}) {
     return (
-        <div className="w-full max-w-[600px] flex flex-col">
+        <section className="w-full max-w-[600px] flex flex-col" aria-label="Resultaten">
             <div className="md:hidden mb-4">
                 <button className="flex flex-row border px-2 border-diploblue-600 rounded" onClick={onShowFilters}>
                     <span>Filters</span>
@@ -177,9 +179,9 @@ function SearchResults({searchStruc, result, onFilterRemove, selectPage, onItem,
 
             {searchStruc.searchvalues?.length > 0 &&
                 <div className="flex flex-col md:flex-row gap-2 justify-between mb-10">
-                    <span className="font-semibold">
+                    <h1 className="font-semibold text-lg">
                         {result.amount} {result.amount > 9999 && '+'} interviews gevonden
-                    </span>
+                    </h1>
                 </div>
             }
 
@@ -192,7 +194,7 @@ function SearchResults({searchStruc, result, onFilterRemove, selectPage, onItem,
                     Gebruik de zoektermen aan de linkerzijde om de resultaten te verfijnen.
                 </div>}
 
-            <ul>
+            <ul aria-label="Resultatenlijst">
                 {result.items.map(item =>
                     <ResultCard key={item.id} item={item} searchValues={searchStruc.searchvalues} onItem={onItem}/>
                 )}
@@ -200,7 +202,7 @@ function SearchResults({searchStruc, result, onFilterRemove, selectPage, onItem,
                 {result.amount > searchStruc.page_length &&
                     <Pagination page={searchStruc.page} pages={result.pages} selectPage={selectPage}/>}
             </ul>
-        </div>
+        </section>
     );
 }
 
@@ -229,12 +231,12 @@ function SelectedFilters({searchValues, onRemove}) {
     }))), []);
 
     return (
-        <div className="flex flex-row gap-2 my-4 flex-wrap">
+        <section className="flex flex-row gap-2 my-4 flex-wrap" aria-label="Geselecteerde filters">
             {selectedFilters.map(item => (
                 <SelectedFilter key={item.key} value={item.value} name={item.name}
                                 className={item.className} icon={item.icon} onRemove={onRemove}/>
             ))}
-        </div>
+        </section>
     );
 }
 
@@ -307,7 +309,7 @@ function MiniPlayer({id, session, sessionData}) {
     const [setChapterCues, setCaptionCues, setCurrentTime] = useTrackCues();
 
     return (
-        <div className="w-full flex-col flex">
+        <section className="w-full flex-col flex" aria-label="Interview">
             <div className="max-h-screen sticky top-0 overflow-y-auto">
                 <Video id={id} session={session} onTimeUpdate={setCurrentTime}
                        onCaptionsLoaded={setCaptions} onChaptersLoaded={setChapters}/>
@@ -323,6 +325,6 @@ function MiniPlayer({id, session, sessionData}) {
                     <Transcription chapters={chapters} captions={captions} notice={sessionData.Bewerking}/>
                 </div>
             </div>
-        </div>
+        </section>
     );
 }
