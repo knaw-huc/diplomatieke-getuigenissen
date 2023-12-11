@@ -118,7 +118,7 @@ function SessionMatch({id, session, record, match, onItem}) {
     }
 
     return (
-        <div className="flex flex-col sm:flex-row items-center text-sm gap-4 hover:bg-blueGrey-50 p-2"
+        <div className="flex flex-col sm:flex-row text-sm gap-4 hover:bg-blueGrey-50 p-2"
              onClick={_ => onItem(id, record, session, match.start)}>
             <div className="timestamp font-mono text-xs mt-1 self-start">
                 {getDuration(match.start)}

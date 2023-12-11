@@ -9,7 +9,15 @@ import Transcription from "./transcript.jsx";
 import {getHash, getTimeHash} from "../misc/utils.js";
 import {getApiBase} from "../misc/config.js";
 import {Spinner} from "../misc/loading.jsx";
-import {CrossIcon, InformationIcon, PersonIcon, LocationIcon, OrganisationIcon, SearchIcon} from "../misc/icons.jsx";
+import {
+    CrossIcon,
+    InformationIcon,
+    PersonIcon,
+    LocationIcon,
+    OrganisationIcon,
+    SearchIcon,
+    FiltersIcon
+} from "../misc/icons.jsx";
 import useTrackCues, {TrackCuesContextProvider} from "../hooks/useTrackCues.jsx";
 
 export async function searchLoader({params}) {
@@ -46,6 +54,7 @@ export default function Search() {
     const navigation = useNavigation();
     const {searchStruc, result} = useLoaderData();
 
+    const [showFiltersPopup, setShowFiltersPopup] = useState(false);
     const [selectedId, setSelectedId] = useState(null);
     const [selectedSession, setSelectedSession] = useState(null);
     const [selectedSessionData, setSelectedSessionData] = useState(null);
@@ -116,7 +125,8 @@ export default function Search() {
 
     return (
         <div className="flex flex-col md:flex-row w-full max-w-[1700px] mx-auto gap-10 xl:gap-20 px-6">
-            <SearchFilters sendCandidate={sendCandidate} searchValues={searchStruc.searchvalues}/>
+            <SearchFilters sendCandidate={sendCandidate} searchValues={searchStruc.searchvalues}
+                           showFiltersPopup={showFiltersPopup} onHideFilters={_ => setShowFiltersPopup(false)}/>
 
             {navigation.state === 'loading' ? (
                 <div className="w-full max-w-[600px] flex justify-center">
@@ -124,7 +134,8 @@ export default function Search() {
                 </div>
             ) : (
                 <SearchResults searchStruc={searchStruc} result={result}
-                               onFilterRemove={removeFacet} selectPage={selectPage} onItem={onSelectedItem}/>
+                               onFilterRemove={removeFacet} selectPage={selectPage}
+                               onItem={onSelectedItem} onShowFilters={_ => setShowFiltersPopup(true)}/>
             )}
 
             {selectedId && <DetailView id={selectedId} session={selectedSession} sessionData={selectedSessionData}/>}
@@ -132,9 +143,18 @@ export default function Search() {
     );
 };
 
-function SearchFilters({sendCandidate, searchValues}) {
+function SearchFilters({sendCandidate, searchValues, showFiltersPopup, onHideFilters}) {
+    const showPopupCl = 'px-5 py-3 absolute drop-shadow-2xl';
+    const hidePopupCl = 'hidden';
+
     return (
-        <div className="w-full hidden md:flex flex-col max-w-[300px] bg-white">
+        <div className={`w-full flex-col max-w-[300px] bg-white md:flex ${showFiltersPopup ? showPopupCl : hidePopupCl}`}>
+            <div className="w-full text-right">
+                <button className="md:hidden" onClick={onHideFilters}>
+                    <CrossIcon className="w-6 h-6 fill-diploblue-700"/>
+                </button>
+            </div>
+
             <FreeTextFacet add={sendCandidate}/>
             <ListFacet parentCallback={sendCandidate} searchValues={searchValues}
                        name="naam" field="titel"/>
@@ -146,9 +166,16 @@ function SearchFilters({sendCandidate, searchValues}) {
     );
 }
 
-function SearchResults({searchStruc, result, onFilterRemove, selectPage, onItem}) {
+function SearchResults({searchStruc, result, onFilterRemove, selectPage, onItem, onShowFilters}) {
     return (
         <div className="w-full max-w-[600px] flex flex-col">
+            <div className="md:hidden mb-4">
+                <button className="flex flex-row border px-2 border-diploblue-600 rounded" onClick={onShowFilters}>
+                    <span>Filters</span>
+                    <FiltersIcon className="w-6 h-6 fill-diploblue-700"/>
+                </button>
+            </div>
+
             {searchStruc.searchvalues?.length > 0 &&
                 <div className="flex flex-col md:flex-row gap-2 justify-between mb-10">
                     <span className="font-semibold">
