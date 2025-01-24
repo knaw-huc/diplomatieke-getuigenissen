@@ -30,11 +30,12 @@ function ChapterCue({cue}) {
                 <BookmarkIcon className="w-4 h-4 fill-diploBlue-700"/>
             </span>
 
-            <a href={getHash(cue.startTime)} className="font-mono text-base mr-3">
-                {getDuration(cue.startTime)}
+            <a href={getHash(cue.startTime)}>
+                <span className="font-mono text-base mr-3">{getDuration(cue.startTime)}</span>
+                <span>{cue.text}</span>
             </a>
 
-            {cue.text}
+            
         </li>
     );
 }

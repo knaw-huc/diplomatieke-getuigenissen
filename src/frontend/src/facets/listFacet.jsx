@@ -50,11 +50,12 @@ export default function ListFacet({name, field, searchValues, parentCallback}) {
 
     return (
         <>
-            <div className="hcFacetSubDivision mb-2">
-                <span className="hcFacetGroup cursor-pointer" onClick={_ => setHidden(!hidden)}>
+            <div className="hcFacetSubDivision mb-2 flex justify-between capitalize">
+                <span>{name}</span>
+                <button className="hcFacetGroup cursor-pointer text-sm" onClick={_ => setHidden(!hidden)} aria-label="Klap dit zoek facet open of dicht">
                     {hidden ? '▶' : '▼'} {' '}
-                    {name}
-                </span>
+                    
+                </button>
             </div>
 
             {!hidden &&
@@ -66,7 +67,7 @@ export default function ListFacet({name, field, searchValues, parentCallback}) {
 
                         {!loading ? (<div className="hcFacetItems">
                             {data.map((item, index) => (
-                                <div key={index} className="hcFacetItem cursor-pointer"
+                                <button key={index} className="hcFacetItem cursor-pointer text-left"
                                      onClick={_ => sendCandidate(item.key)}>
                                     <div className="checkBoxItem">
                                         <span>{item.key}</span>
@@ -74,12 +75,15 @@ export default function ListFacet({name, field, searchValues, parentCallback}) {
                                             ({item.doc_count})
                                         </div>
                                     </div>
-                                </div>
+                                </button>
                             ))}
 
-                            <div className="hcClickable cursor-pointer" onClick={changeListLength}>
+                            <button className="hcClickable cursor-pointer text-sm mt-2 text-left" 
+                                onClick={changeListLength}
+                                aria-label="Toon alle facetitems">
+                                
                                 {more ? 'Meer...' : 'Minder...'}
-                            </div>
+                            </button>
                         </div>) : (<div>Loading...</div>)}
                     </div>
                 </div>

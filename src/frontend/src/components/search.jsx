@@ -242,17 +242,17 @@ function SelectedFilters({searchValues, onRemove}) {
 
 function SelectedFilter({value, name, className, icon, onRemove}) {
     return (
-        <button className={className} onClick={_ => onRemove(name, value)}>
+        <div className={className} >
             <span className="mr-1">
                 {icon}
             </span>
 
             <span>{value}</span>
 
-            <span className="ml-1">
+            <button className="ml-1" onClick={_ => onRemove(name, value)} aria-label={`Klik om ${value} te verwijderen van zoekfilters`}>
                 <CrossIcon className="w-5 h-5 fill-(lookup . 'twColor')-800"/>
-            </span>
-        </button>
+            </button>
+        </div>
     );
 }
 

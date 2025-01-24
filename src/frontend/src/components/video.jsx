@@ -191,10 +191,10 @@ const ProgressBarRef = forwardRef(function ProgressBar({duration, skipToTime}, r
     }
 
     return (
-        <div className="progressbar w-full bg-diploblue-900 h-2 flex items-center cursor-pointer group"
+        <button className="progressbar w-full bg-diploblue-900 h-2 flex items-center cursor-pointer group"
              onClick={onSkipToTime}>
             <div className="bg-diploblue-500 h-[2px] group-hover:h-2 transition-all" ref={ref}/>
-        </div>
+        </button>
     );
 });
 
@@ -204,7 +204,7 @@ function ContextBar({duration, chapters}) {
             {duration > 0 && chapters && chapters.map(cue =>
                 <button key={`ch${cue.id}`} className="mt-1 absolute"
                         style={{'marginLeft': `${getDurationInPercentage(cue.startTime, duration)}%`}}
-                        title={cue.text} onClick={_ => window.location.hash = getHash(cue.startTime)}>
+                        title={`bookmark voor ${cue.text}`} onClick={_ => window.location.hash = getHash(cue.startTime)}>
                     <BookmarkIcon className="w-3 h-3 fill-blueGrey-200"/>
                 </button>
             )}
@@ -236,25 +236,25 @@ const ControlsRef = forwardRef(function Controls({
             </div>
 
             <div className="flex justify-center">
-                <div className="cursor-pointer" aria-label="Speel video / Pauze video" onClick={togglePlay}>
+                <button className="cursor-pointer" aria-label="Speel video / Pauze video" onClick={togglePlay}>
                     {!isPlaying && <PlayIcon className="w-6 h-6 fill-white"/>}
                     {isPlaying && <PauseIcon className="w-6 h-6 fill-white"/>}
-                </div>
+                </button>
             </div>
 
             <div className="flex justify-end gap-2">
-                <div className="cursor-pointer" aria-label="Geluid aan en uit" onClick={toggleSound}>
+                <button className="cursor-pointer" aria-label="Geluid aan en uit" onClick={toggleSound}>
                     {!isMuted && <SoundIcon className="w-4 h-4 fill-white"/>}
                     {isMuted && <MuteIcon className="w-4 h-4 fill-white"/>}
-                </div>
+                </button>
 
-                <div className="cursor-pointer" aria-label="Toon ondertiteling" onClick={toggleCaptions}>
+                <button className="cursor-pointer" aria-label="Toon ondertiteling" onClick={toggleCaptions}>
                     <CaptionsIcon className="w-4 h-4 stroke-white"/>
-                </div>
+                </button>
 
-                <div className="cursor-pointer" aria-label="Bekijk op volledige scherm" onClick={toggleFullScreen}>
+                <button className="cursor-pointer" aria-label="Bekijk op volledige scherm" onClick={toggleFullScreen}>
                     <FullScreenIcon className="w-4 h-4 fill-white"/>
-                </div>
+                </button>
             </div>
         </div>
     );
