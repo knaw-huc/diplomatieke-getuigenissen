@@ -34,7 +34,8 @@ export default function FreeTextFacet(props) {
                 <input className="py-1 px-3 w-full rounded-l border border-diploblue-700" type="search"
                        id="text-search" name="q" value={textField} onChange={handleChange} onKeyUp={handleKeyPress}/>
                 <button type="button" onClick={_ => {setTextFacet()}}
-                        className="bg-diploblue-700 py-1 px-3 rounded-r border-t border-b border-r border-diploblue-700">
+                        className="bg-diploblue-700 py-1 px-3 rounded-r border-t border-b border-r border-diploblue-700"
+                        aria-label="Zoeken">
                     <SearchIcon className="w-4 h-4 fill-white"/>
                 </button>
             </div>

@@ -62,9 +62,10 @@ export default function ResultCard({item, searchValues, onItem}) {
     return (
         <li className="w-full rounded border cursor-pointer mb-6 divide-y divide-solid bg-blueGrey-50 hover:bg-white border-blueGrey-50 hover:border-blueGrey-200 transition"
             aria-label="Zoekresultaat">
-            <div className="font-semibold p-4" onClick={_ => onItem(item.id, item.record)}>
+                
+            <button className="font-semibold p-4" onClick={_ => onItem(item.id, item.record)}>
                 {item.titel}
-            </div>
+            </button>
 
             {keywordSearch.length > 0 && <>
                 {isLoading ? <div className="p-4">
@@ -75,18 +76,18 @@ export default function ResultCard({item, searchValues, onItem}) {
                                         record={item.record} label={item.titel} onItem={onItem}/>)}
 
                     {totalMatches > LIMIT_SIZE && !showAll &&
-                        <div className="flex flex-row items-center justify-end"
+                        <button className="flex flex-row items-center justify-end w-full"
                              onClick={_ => setShowAll(true)}>
                             <div className="text-sm italic text-blueGrey-600 p-2 w-full text-right">
                                 Bekijk alle {totalMatches} resultaten
                             </div>
 
                             <div>
-                                <button className="p-3 rounded cursor-pointer">
+                                <div className="p-3 rounded cursor-pointer">
                                     <DoubleArrowDownIcon className="w-4 h-4 fill-diploblue-900"/>
-                                </button>
+                                </div>
                             </div>
-                        </div>}
+                        </button>}
                 </>}
             </>}
         </li>
@@ -128,10 +129,11 @@ function SessionMatch({id, session, record, label, match, onItem}) {
     }
 
     return (
-        <div className="flex flex-col sm:flex-row text-sm gap-4 hover:bg-blueGrey-50 p-2" onClick={onResultClick}>
+        <button className="flex flex-col sm:flex-row text-sm gap-4 hover:bg-blueGrey-50 p-2 w-full text-left" onClick={onResultClick}>
             <div className="timestamp font-mono text-xs mt-1 self-start">
                 {getDuration(match.start)}
             </div>
+            
 
             <div className="flex-grow mb-1">
                 {text.map((part, i) => !part.isMatchPart
@@ -141,19 +143,22 @@ function SessionMatch({id, session, record, label, match, onItem}) {
                     </span>)}
             </div>
 
+            
+
             <div className="resultBtn block md:hidden"
-                 onClick={_ => navigate(`/interview/${id}${getHash(undefined, session)}`)}>
-                <button className="p-3 rounded cursor-pointer" aria-label={`Bekijk dit fragment van ${label}`}>
+                 onClick={_ => navigate(`/interview/${id}${getHash(undefined, session)}`)} aria-label={`Bekijk dit fragment van ${label}`}>
+                <div className="p-3 rounded cursor-pointer" >
                     <ArrowRightIcon className="w-5 h-5 fill-diploblue-900"/>
-                </button>
+                </div>
             </div>
 
             <div className="resultBtn hidden md:block"
                  onClick={_ => onItem(id, record, session, match.start)}>
-                <button className="p-3 rounded cursor-pointer" aria-label={`Bekijk dit fragment van ${label}`}>
+                <div className="p-3 rounded cursor-pointer" >
                     <ArrowRightIcon className="w-5 h-5 fill-diploblue-900"/>
-                </button>
+                </div>
             </div>
-        </div>
+        </button>
+        
     );
 }
