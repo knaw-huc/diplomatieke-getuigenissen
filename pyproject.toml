@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "diplomatieke-getuigenissen"
+version = "1.1.0"
+description = ""
+readme = "README.md"
+package-mode = false
+packages = [
+    { include = "src" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+elasticsearch = "^8.17.1"
+Flask = "^3.1.0"
+Flask-CORS = "^5.0.0"
+requests = "^2.32.3"
+webvtt-py = "^0.5.1"
+cachetools = "^5.5.1"
+
+[tool.poetry.group.prod]
+optional = true
+
+[tool.poetry.group.prod.dependencies]
+pyuwsgi = "^2.0.28.post1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
